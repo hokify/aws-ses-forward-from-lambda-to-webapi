@@ -30,7 +30,9 @@ Side node: try to host the lambda function and the SES in the same region. I was
  - Almost done, now switch to SES console and open the "rule sets" under the "Email Receiving" header.
  - Open the Active Rule Set (if you have already on for your domain, just edit it, otherwise create a new rule).
     - Recipients: "yourdomain.com"
-    - Actions: 1. S3 Action
+    - Actions:
+
+               1. S3 Action
                Write to S3 bucket yourcompany-incoming-ses-mails
 
                2. Lambda Action
