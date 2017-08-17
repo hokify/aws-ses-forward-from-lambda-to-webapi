@@ -18,7 +18,9 @@ the total size of the mail is limited to 150KB in this case.
  - Open your AWS console and go to the Lambda dashboard
  - Create a new function (Click Author from scratch and upload your app (see "how to build"))
  - Complete the form and remember the ARN (arn:aws:lambda:eu-west-1:YOUR_ACCOUNT_ID:function:FUNCTION_NAME)
- - Add Environment Variables and add "endpoint" (full http/https url) and set "s3bucket" to a name you can use for your raw emails (e.g. yourcompany-incoming-ses-mails (this name must be avaiable to use on s3))
+ - Add Environment Variables
+    - "endpoint": full http/https url to your endpoint (POST: content, mail, receipt)
+    - "s3bucket": a name you can use for your raw emails (e.g. yourcompany-incoming-ses-mails (this name must be avaiable to use on s3))
  - Now it's get a bit more tricky, you need to have the aws console commands installed to add the permissions for SES to execute your function:
  Execute following command:
  ```bash
@@ -30,6 +32,7 @@ Side node: try to host the lambda function and the SES in the same region. I was
     - Recipients: "yourdomain.com"
     - Actions: 1. S3 Action
                Write to S3 bucket yourcompany-incoming-ses-mails
+
                2. Lambda Action
                Invoke Lambda function <YOUR_LAMBDA_FUNCTION> as Event
 
@@ -41,6 +44,6 @@ Make sure noone else can call your endpoint. This is up to you.
 ## How to build
 Just download this package and run "npm install". Afterwards zip the folder (index.js should be in the root).
 ```bash
-npm install --save <engine>
+npm install
 zip -r aws-ses-forward-api.zip .
 ```
