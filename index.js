@@ -4,14 +4,12 @@ const AWS = require('aws-sdk');
 const request = require('request');
 const s3 = new AWS.S3();
 
-// Update the emailDomain environment variable to the correct domain, e.g. <MYDOMAIN>.com
 const endpoint = process.env.endpoint; // e.g. https://yourdomain.com/api/retrieve-email/<secrethash>/<whatever>
 const bucketName = process.env.s3bucket;
 
-exports.handler = (event, context, callback) => {
+exports.handler = function(event, context, callback) {
     const sesNotification = event.Records[0].ses;
     const messageId = sesNotification.mail.messageId;
-    const receipt = sesNotification.receipt;
 
     console.log('Processing message:', messageId);
 
@@ -36,8 +34,8 @@ exports.handler = (event, context, callback) => {
                 },
                 json: true
             }, function (err, response, body) {
-                    if(err || response.statusCode != 200) {
-                        console.log("err", body)
+                    if(err || response.statusCode !== 200) {
+                        console.log("err", body);
                         return callback(err);
                     }
                     
