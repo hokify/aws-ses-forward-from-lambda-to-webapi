@@ -40,3 +40,7 @@ Make sure noone else can call your endpoint. This is up to you.
 
 ## How to build
 Just download this package and run "npm install". Afterwards zip the folder (index.js should be in the root).
+```bash
+npm install --save <engine>
+zip -r aws-ses-forward-api.zip .
+```
