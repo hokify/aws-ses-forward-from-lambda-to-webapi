@@ -29,11 +29,12 @@ exports.handler = (event, context, callback) => {
 
         request.post({
             url: endpoint,
-            formData: {
-                content: data.Body,
+            body: {
+                content: Buffer.from(data.Body).toString(),
                 mail: sesNotification.mail,
                 receipt: sesNotification.receipt
-            }
+            },
+            json: true
         }, function (err, response, body) {
             if(err || response.statusCode != 200) {
                 console.log("err", body)
