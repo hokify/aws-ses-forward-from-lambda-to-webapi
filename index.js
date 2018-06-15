@@ -25,16 +25,15 @@ exports.handler = (event, context, callback) => {
             return callback(err);
         }
 
-        //console.log("Raw email:\n" + data.Body);
+        console.log("Raw email length:\n" + (data.Body && data.Body.length) || 'no body');
 
         request.post({
-            url: 'https://'+endpoint+'/api/email-inbound/9123jsdSAVjsdAA',
-            body: {
-                content: new Buffer(data.Body).toString(),
+            url: endpoint,
+            formData: {
+                content: data.Body,
                 mail: sesNotification.mail,
                 receipt: sesNotification.receipt
-            },
-            json: true
+            }
         }, function (err, response, body) {
             if(err || response.statusCode != 200) {
                 console.log("err", body)
